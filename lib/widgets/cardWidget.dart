@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:stock_quote_app/widgets/stock_chart.dart';
 
 class Cardwidget extends StatelessWidget {
   const Cardwidget({
     super.key,
     required this.ontap,
     required this.stockName,
-    required this.stockPrice,
     required this.stockSymbol,
   });
 
   final VoidCallback ontap;
   final String stockName;
-  final String stockPrice;
   final String stockSymbol;
 
   @override
@@ -28,7 +25,6 @@ class Cardwidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              StockChart(), // Placeholder chart (you can customize this)
               const SizedBox(height: 16),
               Text(
                 stockName,
@@ -40,17 +36,8 @@ class Cardwidget extends StatelessWidget {
               if (stockSymbol.isNotEmpty)
                 Text(
                   stockSymbol,
-                  style: const TextStyle(fontSize: 16, color: Colors.grey),
+                  style: const TextStyle(fontSize: 20, color: Colors.black),
                 ),
-              const SizedBox(height: 10),
-              Text(
-                '\$$stockPrice',
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.green,
-                ),
-              ),
             ],
           ),
         ),

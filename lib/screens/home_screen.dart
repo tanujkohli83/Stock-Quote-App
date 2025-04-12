@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stock_quote_app/models/stock_quote.dart';
 import '../providers/stock_provider.dart';
 import '../widgets/cardWidget.dart';
 import 'details_screen.dart';
@@ -12,13 +13,39 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _controller = TextEditingController();
+  List<StockQuote> _filteredStocks = [];
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<StockProvider>(context, listen: false).loadStocks();
+      final provider = Provider.of<StockProvider>(context, listen: false);
+      provider.loadStocks().then((_) {
+        setState(() {
+          _filteredStocks = provider.stocks;
+        });
+      });
     });
+  }
+
+  void _searchStock(String query) {
+    final provider = Provider.of<StockProvider>(context, listen: false);
+    if (query.isEmpty) {
+      setState(() {
+        _filteredStocks = provider.stocks;
+      });
+    } else {
+      final filtered =
+          provider.stocks
+              .where(
+                (stock) =>
+                    stock.symbol.toLowerCase().contains(query.toLowerCase()),
+              )
+              .toList();
+      setState(() {
+        _filteredStocks = filtered;
+      });
+    }
   }
 
   @override
@@ -41,7 +68,9 @@ class _HomeScreenState extends State<HomeScreen> {
               width: 30,
             ),
             onPressed: () {
-              provider.loadStocks();
+              provider.loadStocks().then((_) {
+                _searchStock(_controller.text);
+              });
             },
           ),
           IconButton(
@@ -71,9 +100,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 filled: true,
                 suffixIcon: IconButton(
                   icon: Icon(Icons.search),
-                  onPressed: () {},
+                  onPressed: () => _searchStock(_controller.text),
                 ),
               ),
+              onChanged: _searchStock,
             ),
             const SizedBox(height: 20),
             provider.isLoading
@@ -81,27 +111,35 @@ class _HomeScreenState extends State<HomeScreen> {
                 : provider.error.isNotEmpty
                 ? Text(provider.error)
                 : Expanded(
-                  child: ListView.builder(
-                    itemCount: provider.stocks.length,
-                    itemBuilder: (context, index) {
-                      final stock = provider.stocks[index];
-                      return Cardwidget(
-                        stockName: stock.name,
-                        stockSymbol: stock.symbol,
-                        stockPrice: "",
-                        ontap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) =>
-                                      DetailsScreen(symbol: stock.symbol),
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  ),
+                  child:
+                      _filteredStocks.isEmpty
+                          ? Text("No stock found")
+                          : ListView.builder(
+                            itemCount: _filteredStocks.length,
+                            itemBuilder: (context, index) {
+                              final stock = _filteredStocks[index];
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 6.0,
+                                ),
+                                child: Cardwidget(
+                                  stockName: stock.name,
+                                  stockSymbol: stock.symbol,
+                                  ontap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder:
+                                            (context) => DetailsScreen(
+                                              symbol: stock.symbol,
+                                            ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                          ),
                 ),
           ],
         ),

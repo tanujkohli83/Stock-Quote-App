@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/stock_chart.dart';
-import '../utils/wishlist_manager.dart'; // import the wishlist manager
+import '../utils/wishlist_manager.dart'; 
 
 class DetailsScreen extends StatefulWidget {
   final String symbol;
@@ -31,7 +31,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.symbol),
         actions: [
           IconButton(
             onPressed: _toggleWishlist,
@@ -53,10 +52,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20),
+
+            // Optional: You can make this dynamic using API if needed
             Text('Current Price: \$123.45', style: TextStyle(fontSize: 18)),
             Text('Day Change: +1.5%', style: TextStyle(fontSize: 18)),
+
             SizedBox(height: 30),
-            SizedBox(height: 250, child: StockChart()),
+
+            SizedBox(
+              height: 250,
+              child: StockChart(symbol: widget.symbol), // 👈 pass symbol here
+            ),
           ],
         ),
       ),
