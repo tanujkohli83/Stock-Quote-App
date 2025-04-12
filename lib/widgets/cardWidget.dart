@@ -1,44 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:stock_quote_app/widgets/stock_chart.dart';
 
 class Cardwidget extends StatelessWidget {
-  const Cardwidget({super.key, required this.ontap});
+  const Cardwidget({
+    super.key,
+    required this.ontap,
+    required this.stockName,
+    required this.stockPrice,
+    required this.stockSymbol,
+  });
 
-  final Function ontap;
+  final VoidCallback ontap;
+  final String stockName;
+  final String stockPrice;
+  final String stockSymbol;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 450,
-      width: double.infinity,
-      child: GestureDetector(
-        onTap: () => ontap(),
-        child: Card(
-          color: Colors.white,
-          elevation: 3,
-          child: Container(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                StockChart(),
-                const SizedBox(height: 20),
-                Text("Stock Name",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+    return GestureDetector(
+      onTap: ontap,
+      child: Card(
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              StockChart(), // Placeholder chart (you can customize this)
+              const SizedBox(height: 16),
+              Text(
+                stockName,
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
                 ),
-                Text("Stock Price",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey,
-                  ),
+              ),
+              if (stockSymbol.isNotEmpty)
+                Text(
+                  stockSymbol,
+                  style: const TextStyle(fontSize: 16, color: Colors.grey),
                 ),
-              ],
-            ),
+              const SizedBox(height: 10),
+              Text(
+                '\$$stockPrice',
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.green,
+                ),
+              ),
+            ],
           ),
         ),
       ),

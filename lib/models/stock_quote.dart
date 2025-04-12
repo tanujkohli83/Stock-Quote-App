@@ -1,15 +1,19 @@
 class StockQuote {
-  final double currentPrice;
-  final double change;
-  final double percentChange;
+  final String symbol;
+  final String name;
+  final String currency;
 
-  StockQuote({required this.currentPrice, required this.change, required this.percentChange});
+  StockQuote({
+    required this.symbol,
+    required this.name,
+    required this.currency,
+  });
 
   factory StockQuote.fromJson(Map<String, dynamic> json) {
     return StockQuote(
-      currentPrice: json['c']?.toDouble() ?? 0.0,
-      change: json['d']?.toDouble() ?? 0.0,
-      percentChange: json['dp']?.toDouble() ?? 0.0,
+      symbol: json['symbol'] ?? '',
+      name: json['name'] ?? '',
+      currency: json['currency'] ?? '',
     );
   }
 }
