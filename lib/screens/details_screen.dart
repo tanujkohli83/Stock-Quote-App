@@ -49,15 +49,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
           children: [
             Text(
               'Company: ${widget.symbol} Inc.',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-            // Optional: You can make this dynamic using API if needed
-            Text('Current Price: \$123.45', style: TextStyle(fontSize: 18)),
-            Text('Day Change: +1.5%', style: TextStyle(fontSize: 18)),
+            const Text('Current Price: \$123.45', style: TextStyle(fontSize: 18)),
+            const Text('Day Change: +1.5%', style: TextStyle(fontSize: 18)),
 
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
 
             SizedBox(
               height: 250,

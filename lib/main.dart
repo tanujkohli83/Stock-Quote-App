@@ -15,9 +15,9 @@ class MyApp extends StatelessWidget {
       create: (_) => StockProvider(),
       child: MaterialApp(
         theme: ThemeData(
-          primaryColor: Color(0xFFFED9B7),
-          scaffoldBackgroundColor: Color(0xFFFED9B7),
-          appBarTheme: AppBarTheme(backgroundColor: Color(0xFFFED9B7)),
+          primaryColor: const Color(0xFFFED9B7),
+          scaffoldBackgroundColor: const Color(0xFFFED9B7),
+          appBarTheme: const AppBarTheme(backgroundColor: Color(0xFFFED9B7)),
 
         ),
         debugShowCheckedModeBanner: false,

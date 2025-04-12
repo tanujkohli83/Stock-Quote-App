@@ -80,8 +80,8 @@ class _StockChartState extends State<StockChart> {
   @override
   Widget build(BuildContext context) {
     return _isLoading
-        ? Center(child: CircularProgressIndicator())
-        : Container(
+        ? const Center(child: CircularProgressIndicator())
+        : SizedBox(
           width: double.infinity,
           height: 400,
           child: SfCartesianChart(
@@ -94,11 +94,11 @@ class _StockChartState extends State<StockChart> {
               dateFormat: DateFormat.Hm(),
               intervalType: DateTimeIntervalType.minutes,
               labelIntersectAction: AxisLabelIntersectAction.rotate45,
-              majorGridLines: MajorGridLines(width: 0.5),
-              axisLine: AxisLine(width: 1),
-              labelStyle: TextStyle(fontSize: 12),
+              majorGridLines: const MajorGridLines(width: 0.5),
+              axisLine: const AxisLine(width: 1),
+              labelStyle: const TextStyle(fontSize: 12),
             ),
-            primaryYAxis: NumericAxis(
+            primaryYAxis: const NumericAxis(
               opposedPosition: true,
               majorGridLines: MajorGridLines(width: 0.5),
               axisLine: AxisLine(width: 1),
@@ -111,8 +111,8 @@ class _StockChartState extends State<StockChart> {
                 yValueMapper: (StockData data, _) => data.price,
                 color: _lineColor,
                 width: 3,
-                markerSettings: MarkerSettings(isVisible: true),
-                dataLabelSettings: DataLabelSettings(isVisible: false),
+                markerSettings: const MarkerSettings(isVisible: true),
+                dataLabelSettings: const DataLabelSettings(isVisible: false),
               ),
             ],
           ),

@@ -54,8 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Stock Quote App'),
-        titleTextStyle: TextStyle(
+        title: const Text('Stock Quote App'),
+        titleTextStyle: const TextStyle(
           fontSize: 28,
           color: Colors.black,
           fontWeight: FontWeight.bold,
@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => WishlistScreen()),
+                MaterialPageRoute(builder: (_) => const WishlistScreen()),
               );
             },
           ),
@@ -92,14 +92,14 @@ class _HomeScreenState extends State<HomeScreen> {
               controller: _controller,
               decoration: InputDecoration(
                 hintText: 'Enter Stock Symbol (e.g. AAPL)',
-                hintStyle: TextStyle(color: Colors.black, fontSize: 16),
+                hintStyle: const TextStyle(color: Colors.black, fontSize: 16),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
                 fillColor: Colors.white,
                 filled: true,
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.search),
+                  icon: const Icon(Icons.search),
                   onPressed: () => _searchStock(_controller.text),
                 ),
               ),
@@ -107,13 +107,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 20),
             provider.isLoading
-                ? CircularProgressIndicator()
+                ? const CircularProgressIndicator()
                 : provider.error.isNotEmpty
                 ? Text(provider.error)
                 : Expanded(
                   child:
                       _filteredStocks.isEmpty
-                          ? Text("No stock found")
+                          ? const Text("No stock found")
                           : ListView.builder(
                             itemCount: _filteredStocks.length,
                             itemBuilder: (context, index) {
