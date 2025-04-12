@@ -4,7 +4,6 @@ import 'screens/home_screen.dart';
 import 'providers/stock_provider.dart';
 
 void main() async {
-  // await dotenv.load();
   runApp(MyApp());
 }
 
